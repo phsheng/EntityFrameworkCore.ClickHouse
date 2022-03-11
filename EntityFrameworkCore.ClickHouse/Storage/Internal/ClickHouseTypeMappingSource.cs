@@ -1,8 +1,9 @@
-﻿using ClickHouse.EntityFrameworkCore.Storage.Internal.Mapping;
-using Microsoft.EntityFrameworkCore.Storage;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using ClickHouse.EntityFrameworkCore.Storage.Internal.Mapping;
+using Microsoft.EntityFrameworkCore.Storage;
+using NodaTime;
 
 namespace ClickHouse.EntityFrameworkCore.Storage.Internal
 {
@@ -24,7 +25,9 @@ namespace ClickHouse.EntityFrameworkCore.Storage.Internal
             { typeof(DateTime), new DateTimeTypeMapping("DateTime") },
             { typeof(double), new DoubleTypeMapping("Float64") },
             { typeof(float), new FloatTypeMapping("Float32") },
-            { typeof(Guid), new GuidTypeMapping("UUID") }
+            { typeof(Guid), new GuidTypeMapping("UUID") },
+            { typeof(Instant), new ClickHouseInstantTypeMapping() },
+            { typeof(LocalDate), new ClickHouseLocalDateTypeMapping() }
         };
 
         public ClickHouseTypeMappingSource(TypeMappingSourceDependencies dependencies, RelationalTypeMappingSourceDependencies relationalDependencies)
